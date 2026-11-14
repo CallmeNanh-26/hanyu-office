@@ -1,0 +1,205 @@
+// Nội dung lớp đào tạo và bài đánh giá của ải "Thu mua".
+// Nhân vật và kịch bản nhiệm vụ nằm ở content-mission.js.
+// Giáo viên sửa nội dung ở hai file này, không cần đụng vào app.js.
+// Trong câu chữ có thể dùng {me} / {mePy} (tên nhân vật người chơi) và {boss} / {bossPy}.
+
+window.CONTENT = {
+  company: { zh: '星辰电器', py: 'Xīngchén Diànqì', vi: 'Công ty Điện gia dụng Tinh Thần' },
+
+  // ===================== LỚP ĐÀO TẠO =====================
+  lessons: [
+    {
+      id: 'vocab', title: '第一课 · 采购词汇', vi: 'Bài 1 · Từ vựng thu mua',
+      intro: 'Trước khi đi đàm phán, em cần nắm 21 từ này. Bấm 🔊 để nghe phát âm nhé!',
+      words: [
+        { zh: '采购', py: 'cǎigòu', vi: 'thu mua, mua hàng', ex: '我在采购部工作。', exPy: 'Wǒ zài cǎigòubù gōngzuò.', exVi: 'Tôi làm ở phòng thu mua.' },
+        { zh: '原材料', py: 'yuáncáiliào', vi: 'nguyên vật liệu', ex: '这个项目需要很多原材料。', exPy: 'Zhège xiàngmù xūyào hěn duō yuáncáiliào.', exVi: 'Dự án này cần nhiều nguyên vật liệu.' },
+        { zh: '供应商', py: 'gōngyìngshāng', vi: 'nhà cung cấp', ex: '我们要找一家新的供应商。', exPy: 'Wǒmen yào zhǎo yì jiā xīn de gōngyìngshāng.', exVi: 'Chúng tôi cần tìm một nhà cung cấp mới.' },
+        { zh: '报价', py: 'bàojià', vi: 'báo giá', ex: '请把报价发给我。', exPy: 'Qǐng bǎ bàojià fā gěi wǒ.', exVi: 'Vui lòng gửi báo giá cho tôi.' },
+        { zh: '单价', py: 'dānjià', vi: 'đơn giá', ex: '每吨的单价是多少？', exPy: 'Měi dūn de dānjià shì duōshao?', exVi: 'Đơn giá mỗi tấn là bao nhiêu?' },
+        { zh: '吨', py: 'dūn', vi: 'tấn', ex: '我们需要五吨钢板。', exPy: 'Wǒmen xūyào wǔ dūn gāngbǎn.', exVi: 'Chúng tôi cần năm tấn thép tấm.' },
+        { zh: '不锈钢', py: 'bùxiùgāng', vi: 'thép không gỉ (inox)', ex: '这个水壶是不锈钢的。', exPy: 'Zhège shuǐhú shì bùxiùgāng de.', exVi: 'Cái ấm này làm bằng inox.' },
+        { zh: '预算', py: 'yùsuàn', vi: 'ngân sách', ex: '这个价格超过了我们的预算。', exPy: 'Zhège jiàgé chāoguò le wǒmen de yùsuàn.', exVi: 'Giá này vượt quá ngân sách của chúng tôi.' },
+        { zh: '交货期', py: 'jiāohuòqī', vi: 'thời hạn giao hàng', ex: '交货期是三十天。', exPy: 'Jiāohuòqī shì sānshí tiān.', exVi: 'Thời hạn giao hàng là ba mươi ngày.' },
+        { zh: '付款方式', py: 'fùkuǎn fāngshì', vi: 'phương thức thanh toán', ex: '你们的付款方式是什么？', exPy: 'Nǐmen de fùkuǎn fāngshì shì shénme?', exVi: 'Phương thức thanh toán của các anh là gì?' },
+        { zh: '定金', py: 'dìngjīn', vi: 'tiền đặt cọc', ex: '我们先付百分之三十的定金。', exPy: 'Wǒmen xiān fù bǎi fēn zhī sānshí de dìngjīn.', exVi: 'Chúng tôi trả trước 30% tiền cọc.' },
+        { zh: '质量', py: 'zhìliàng', vi: 'chất lượng', ex: '质量比价格更重要。', exPy: 'Zhìliàng bǐ jiàgé gèng zhòngyào.', exVi: 'Chất lượng quan trọng hơn giá cả.' },
+        { zh: '质检报告', py: 'zhìjiǎn bàogào', vi: 'báo cáo kiểm định chất lượng', ex: '请提供质检报告。', exPy: 'Qǐng tígōng zhìjiǎn bàogào.', exVi: 'Vui lòng cung cấp báo cáo kiểm định.' },
+        { zh: '合同', py: 'hétong', vi: 'hợp đồng', ex: '我们下周签合同。', exPy: 'Wǒmen xià zhōu qiān hétong.', exVi: 'Tuần sau chúng ta ký hợp đồng.' },
+        { zh: '优惠', py: 'yōuhuì', vi: 'ưu đãi', ex: '这个价格已经很优惠了。', exPy: 'Zhège jiàgé yǐjīng hěn yōuhuì le.', exVi: 'Giá này đã rất ưu đãi rồi.' },
+        { zh: '长期合作', py: 'chángqī hézuò', vi: 'hợp tác lâu dài', ex: '我们希望长期合作。', exPy: 'Wǒmen xīwàng chángqī hézuò.', exVi: 'Chúng tôi mong được hợp tác lâu dài.' },
+        { zh: '汇报', py: 'huìbào', vi: 'báo cáo (với cấp trên)', ex: '我要向经理汇报询价的情况。', exPy: 'Wǒ yào xiàng jīnglǐ huìbào xúnjià de qíngkuàng.', exVi: 'Tôi phải báo cáo tình hình hỏi giá với trưởng phòng.' },
+        { zh: '有效期', py: 'yǒuxiàoqī', vi: 'thời hạn hiệu lực', ex: '这份报告的有效期是一年。', exPy: 'Zhè fèn bàogào de yǒuxiàoqī shì yì nián.', exVi: 'Báo cáo này có hiệu lực một năm.' },
+        { zh: '过期', py: 'guòqī', vi: 'hết hạn', ex: '这份报告已经过期了。', exPy: 'Zhè fèn bàogào yǐjīng guòqī le.', exVi: 'Báo cáo này đã hết hạn rồi.' },
+        { zh: '提前', py: 'tíqián', vi: 'sớm hơn, đẩy lên trước', ex: '项目提前了。', exPy: 'Xiàngmù tíqián le.', exVi: 'Dự án bị đẩy lên sớm hơn.' },
+        { zh: '分批', py: 'fēnpī', vi: 'chia đợt', ex: '能不能分批交货？', exPy: 'Néng bu néng fēnpī jiāohuò?', exVi: 'Có thể giao hàng theo đợt không?' },
+      ],
+    },
+    {
+      id: 'grammar', title: '第二课 · 谈判句型', vi: 'Bài 2 · Mẫu câu đàm phán',
+      intro: 'Năm mẫu câu này là "vũ khí" khi đàm phán. Đọc ví dụ rồi làm bài luyện tập nhé.',
+      patterns: [
+        { form: '能不能……？', use: 'Đề nghị lịch sự: "có thể… không?"', ex: '能不能便宜一点？', exPy: 'Néng bu néng piányi yìdiǎn?', exVi: 'Có thể rẻ hơn một chút không?' },
+        { form: '如果……的话，……', use: 'Đặt điều kiện: "nếu… thì…"', ex: '如果我们多订一些的话，能不能打折？', exPy: 'Rúguǒ wǒmen duō dìng yìxiē dehuà, néng bu néng dǎzhé?', exVi: 'Nếu chúng tôi đặt nhiều hơn thì có giảm giá được không?' },
+        { form: 'A 比 B + tính từ', use: 'So sánh hai bên', ex: '这家的价格比那家贵。', exPy: 'Zhè jiā de jiàgé bǐ nà jiā guì.', exVi: 'Giá nhà này đắt hơn nhà kia.' },
+        { form: '最晚……之前', use: 'Hạn chót: "chậm nhất trước…"', ex: '最晚三十天之前交货。', exPy: 'Zuì wǎn sānshí tiān zhīqián jiāohuò.', exVi: 'Giao hàng chậm nhất trong vòng ba mươi ngày.' },
+        { form: '先……，再……', use: 'Trình tự: "trước…, sau đó…"', ex: '我们先付定金，交货以后再付余款。', exPy: 'Wǒmen xiān fù dìngjīn, jiāohuò yǐhòu zài fù yúkuǎn.', exVi: 'Chúng tôi trả cọc trước, giao hàng xong mới trả phần còn lại.' },
+      ],
+      quiz: [
+        { type: 'mc', zh: '______便宜一点？', py: '______ piányi yìdiǎn?', vi: 'Có thể rẻ hơn một chút không?',
+          options: [{ zh: '能不能', py: 'néng bu néng' }, { zh: '比', py: 'bǐ' }, { zh: '先', py: 'xiān' }], answer: 0 },
+        { type: 'mc', zh: '______我们订十吨的话，价格能优惠吗？', py: '______ wǒmen dìng shí dūn dehuà, jiàgé néng yōuhuì ma?', vi: 'Nếu chúng tôi đặt mười tấn thì giá có ưu đãi không?',
+          options: [{ zh: '最晚', py: 'zuì wǎn' }, { zh: '如果', py: 'rúguǒ' }, { zh: '比', py: 'bǐ' }], answer: 1 },
+        { type: 'mc', zh: '这家的质量______那家好。', py: 'Zhè jiā de zhìliàng ______ nà jiā hǎo.', vi: 'Chất lượng nhà này tốt hơn nhà kia.',
+          options: [{ zh: '先', py: 'xiān' }, { zh: '如果', py: 'rúguǒ' }, { zh: '比', py: 'bǐ' }], answer: 2 },
+        { type: 'mc', zh: '______三十天之前必须交货。', py: '______ sānshí tiān zhīqián bìxū jiāohuò.', vi: 'Chậm nhất trong ba mươi ngày phải giao hàng.',
+          options: [{ zh: '最晚', py: 'zuì wǎn' }, { zh: '能不能', py: 'néng bu néng' }, { zh: '再', py: 'zài' }], answer: 0 },
+        { type: 'mc', zh: '我们______付百分之三十，交货以后______付百分之七十。', py: 'Wǒmen ______ fù bǎi fēn zhī sānshí, jiāohuò yǐhòu ______ fù bǎi fēn zhī qīshí.', vi: 'Chúng tôi trả trước 30%, giao hàng xong trả 70%.',
+          options: [{ zh: '比……更', py: 'bǐ…… gèng' }, { zh: '先……再', py: 'xiān…… zài' }, { zh: '如果……就', py: 'rúguǒ…… jiù' }], answer: 1 },
+      ],
+    },
+    {
+      id: 'process', title: '第三课 · 采购流程', vi: 'Bài 3 · Nghiệp vụ thu mua',
+      intro: 'Người làm thu mua giỏi không chỉ biết mặc cả. Em cần nắm quy trình 6 bước và bảng kiểm tra ở từng giai đoạn. Mục có dấu ⚠️ là chỗ hay sai, phải kiểm tra thật kỹ.',
+      steps: [
+        { zh: '确定需求', py: 'quèdìng xūqiú', vi: 'Xác định nhu cầu: loại hàng, số lượng, ngân sách, thời hạn' },
+        { zh: '询价', py: 'xúnjià', vi: 'Hỏi giá: gửi yêu cầu báo giá cho nhiều nhà cung cấp' },
+        { zh: '比价', py: 'bǐjià', vi: 'So sánh: giá, chất lượng, thời hạn giao, cách thanh toán' },
+        { zh: '谈判', py: 'tánpàn', vi: 'Đàm phán: thương lượng điều khoản với nhà cung cấp đã chọn' },
+        { zh: '签合同', py: 'qiān hétong', vi: 'Ký hợp đồng: ghi rõ mọi điều khoản đã thống nhất' },
+        { zh: '验收', py: 'yànshōu', vi: 'Nghiệm thu: kiểm tra hàng khi nhận' },
+      ],
+      tips: [
+        { t: 'Rẻ nhất chưa chắc tốt nhất', d: 'Luôn xem 质检报告 (báo cáo kiểm định) và 交货期. Hàng rẻ mà giao trễ thì cả dây chuyền sản xuất phải dừng.' },
+        { t: 'Biết "giới hạn" trước khi vào bàn', d: 'Nắm rõ ngân sách tối đa, thời hạn chậm nhất, điều kiện thanh toán mong muốn. Ra giá thấp hơn mục tiêu một chút để còn chỗ thương lượng.' },
+        { t: 'Lịch sự mà chắc chắn', d: 'Dùng 您, giới thiệu bản thân và công ty. Nhắc tới 长期合作 (hợp tác lâu dài) để có ưu đãi. Thái độ gay gắt thường làm đối tác "cứng" hơn.' },
+        { t: 'Hỏi nhiều nhà, nói thật', d: 'Đừng chỉ đàm phán với một bên. Điều kiện tốt của nhà này là "đòn bẩy" khi nói chuyện với nhà kia, nhưng tuyệt đối không bịa số liệu: đối tác rành giá thị trường hơn em nghĩ.' },
+        { t: '汇报 và 请示 đúng lúc', d: '汇报 (báo cáo) phải có số liệu: giá, thời hạn, cách thanh toán. Việc vượt quyền hạn của mình (ví dụ vượt ngân sách) thì phải 请示 (xin ý kiến) sếp, không tự quyết.' },
+      ],
+      // Bảng kiểm tra theo từng giai đoạn. key: true = mục phải kiểm tra kỹ (⚠️)
+      checklist: [
+        { zh: '接到任务', py: 'jiēdào rènwu', vi: '① Khi nhận nhiệm vụ', items: [
+          { d: 'Ghi lại đủ 5 thông tin: hàng gì (quy cách, ví dụ inox 304), bao nhiêu, ngân sách (预算), cần trước ngày nào (最晚……之前), cách thanh toán mong muốn.', key: true },
+          { d: 'Hỏi lại sếp nếu chưa rõ, nhắc lại các con số để xác nhận. Đừng đoán.' },
+          { d: 'Hỏi xem hàng dùng vào việc gì, gấp tới đâu: biết lý do thì khi đàm phán mới có lý lẽ.' },
+        ] },
+        { zh: '询价和比价', py: 'xúnjià hé bǐjià', vi: '② Khi hỏi giá và so sánh', items: [
+          { d: 'Hỏi ít nhất 3 nhà cung cấp (供应商), gửi cùng một yêu cầu để so sánh công bằng.' },
+          { d: 'So sánh đủ 5 cột: đơn giá (单价), thời hạn giao (交货期), chất lượng và 质检报告, cách thanh toán (付款方式), số lượng đặt tối thiểu.', key: true },
+          { d: 'Xem 质检报告 còn hiệu lực không (有效期), ai cấp: báo cáo đã 过期 hoặc do chính nhà cung cấp tự làm thì không đủ tin cậy.', key: true },
+          { d: 'Báo giá đã gồm thuế, phí vận chuyển chưa? Giá rẻ mà cộng thêm nhiều phí thì chưa chắc rẻ.' },
+        ] },
+        { zh: '谈判', py: 'tánpàn', vi: '③ Khi đàm phán', items: [
+          { d: 'Biết trước "giới hạn" của mình: giá cao nhất, thời hạn chậm nhất, mức cọc (定金) nhiều nhất. Ra giá thấp hơn mục tiêu một chút.' },
+          { d: 'Lịch sự mà chắc chắn: dùng 您, có lý do rõ ràng, nhắc 长期合作 để xin ưu đãi.' },
+          { d: 'Dùng điều kiện thật của nhà khác làm đòn bẩy, tuyệt đối không bịa số liệu.' },
+          { d: 'Mọi con số đã thống nhất phải ghi lại ngay, cuối cuộc gọi đọc lại một lần.', key: true },
+        ] },
+        { zh: '签合同之前', py: 'qiān hétong zhīqián', vi: '④ Trước khi ký hợp đồng (合同)', items: [
+          { d: '汇报 với sếp kèm đủ số liệu. Việc vượt ngân sách hoặc vượt quyền thì phải 请示, không tự ký.', key: true },
+          { d: 'Đối chiếu từng con số trong hợp đồng với email xác nhận: tên hàng, quy cách, số lượng, đơn giá, tổng tiền.', key: true },
+          { d: 'Kiểm tra: thời hạn và địa điểm giao, giao một lần hay chia đợt (分批), cách thanh toán (cọc bao nhiêu, trả nốt khi nào).', key: true },
+          { d: 'Kiểm tra điều khoản chất lượng: hàng lỗi thì đổi (换货) hay giảm giá, trong bao nhiêu ngày; giao trễ thì bồi thường thế nào.' },
+          { d: 'Giá có cố định trong thời gian hợp đồng không? Ghi rõ để tránh đối tác đòi tăng giá giữa chừng.' },
+        ] },
+        { zh: '交货之前', py: 'jiāohuò zhīqián', vi: '⑤ Trước khi giao hàng', items: [
+          { d: 'Định kỳ hỏi tiến độ sản xuất, đừng đợi tới ngày giao mới hỏi.' },
+          { d: 'Khi hàng đã gửi: xin mã vận đơn và ngày hàng tới dự kiến, báo cho kho và xưởng chuẩn bị nhận.', key: true },
+          { d: 'Thấy có nguy cơ trễ thì báo sếp sớm và cùng nhà cung cấp tìm cách (chia đợt, đổi cách vận chuyển).' },
+        ] },
+        { zh: '到货验收', py: 'dàohuò yànshōu', vi: '⑥ Khi hàng tới · 验收', items: [
+          { d: 'Kiểm tra đủ giấy tờ: phiếu giao hàng, phiếu đóng gói, hoá đơn, báo cáo kiểm định hoặc giấy chứng nhận hợp quy (xem bài 4).', key: true },
+          { d: 'Đếm số lượng, đối chiếu với đơn hàng; xem bao bì có rách, hàng có trầy xước, hỏng không. Có vấn đề thì chụp ảnh ngay.', key: true },
+          { d: 'Chỉ ký nhận khi đã kiểm tra. Thiếu hoặc hỏng thì ghi rõ lên phiếu giao hàng trước khi ký.', key: true },
+          { d: 'Báo kết quả nghiệm thu cho sếp và phòng tài chính để thanh toán đúng hạn.' },
+        ] },
+      ],
+    },
+    {
+      // Bài mở rộng: mở sau khi hoàn thành nhiệm vụ ở 采购部 (không bắt buộc cho bài đánh giá)
+      id: 'follow', after: 'mission', title: '第四课 · 跟单与收货', vi: 'Bài 4 · Hối hàng, theo dõi và nhận hàng',
+      intro: 'Ký hợp đồng xong chưa phải là hết việc! Bài này dạy em hối hàng, hỏi tình hình hàng hoá, và những giấy tờ cần có khi hàng tới.',
+      words: [
+        { zh: '跟单', py: 'gēndān', vi: 'theo dõi đơn hàng', ex: '合同签了以后，我负责跟单。', exPy: 'Hétong qiān le yǐhòu, wǒ fùzé gēndān.', exVi: 'Ký hợp đồng xong, tôi phụ trách theo dõi đơn hàng.' },
+        { zh: '进度', py: 'jìndù', vi: 'tiến độ', ex: '请问生产进度怎么样了？', exPy: 'Qǐngwèn shēngchǎn jìndù zěnmeyàng le?', exVi: 'Xin hỏi tiến độ sản xuất thế nào rồi?' },
+        { zh: '催货', py: 'cuīhuò', vi: 'hối giao hàng', ex: '生产部很着急，我要给供应商打电话催货。', exPy: 'Shēngchǎnbù hěn zháojí, wǒ yào gěi gōngyìngshāng dǎ diànhuà cuīhuò.', exVi: 'Xưởng đang rất gấp, tôi phải gọi nhà cung cấp hối hàng.' },
+        { zh: '发货', py: 'fāhuò', vi: 'gửi hàng, xuất hàng', ex: '货已经发了吗？', exPy: 'Huò yǐjīng fā le ma?', exVi: 'Hàng đã gửi đi chưa?' },
+        { zh: '物流', py: 'wùliú', vi: 'vận chuyển, logistics', ex: '请把物流单号发给我。', exPy: 'Qǐng bǎ wùliú dānhào fā gěi wǒ.', exVi: 'Vui lòng gửi cho tôi mã vận đơn.' },
+        { zh: '单号', py: 'dānhào', vi: 'mã số (vận đơn, đơn hàng)', ex: '有了单号，我们可以查一下货到哪儿了。', exPy: 'Yǒu le dānhào, wǒmen kěyǐ chá yíxià huò dào nǎr le.', exVi: 'Có mã vận đơn, chúng ta có thể tra xem hàng đến đâu rồi.' },
+        { zh: '到货', py: 'dàohuò', vi: 'hàng về, hàng tới', ex: '预计星期五到货。', exPy: 'Yùjì xīngqīwǔ dàohuò.', exVi: 'Dự kiến thứ Sáu hàng tới.' },
+        { zh: '送货单', py: 'sònghuòdān', vi: 'phiếu giao hàng', ex: '司机带来了送货单。', exPy: 'Sījī dài lái le sònghuòdān.', exVi: 'Tài xế mang theo phiếu giao hàng.' },
+        { zh: '装箱单', py: 'zhuāngxiāngdān', vi: 'phiếu đóng gói (packing list)', ex: '装箱单上写着每箱有多少。', exPy: 'Zhuāngxiāngdān shang xiězhe měi xiāng yǒu duōshao.', exVi: 'Phiếu đóng gói ghi mỗi thùng có bao nhiêu.' },
+        { zh: '发票', py: 'fāpiào', vi: 'hoá đơn', ex: '没有发票，财务不能付款。', exPy: 'Méiyǒu fāpiào, cáiwù bù néng fùkuǎn.', exVi: 'Không có hoá đơn thì tài chính không thể thanh toán.' },
+        { zh: '合格证', py: 'hégézhèng', vi: 'giấy chứng nhận đạt chuẩn', ex: '每批货都要有合格证。', exPy: 'Měi pī huò dōu yào yǒu hégézhèng.', exVi: 'Mỗi lô hàng đều phải có giấy chứng nhận đạt chuẩn.' },
+        { zh: '数量', py: 'shùliàng', vi: 'số lượng', ex: '请核对一下数量。', exPy: 'Qǐng héduì yíxià shùliàng.', exVi: 'Xin hãy đối chiếu số lượng.' },
+        { zh: '核对', py: 'héduì', vi: 'đối chiếu, kiểm tra lại', ex: '签字以前，要先核对送货单。', exPy: 'Qiānzì yǐqián, yào xiān héduì sònghuòdān.', exVi: 'Trước khi ký phải đối chiếu phiếu giao hàng.' },
+        { zh: '签收', py: 'qiānshōu', vi: 'ký nhận', ex: '检查没问题以后再签收。', exPy: 'Jiǎnchá méi wèntí yǐhòu zài qiānshōu.', exVi: 'Kiểm tra không có vấn đề rồi mới ký nhận.' },
+        { zh: '破损', py: 'pòsǔn', vi: 'hư hỏng, vỡ rách', ex: '有两箱包装破损了。', exPy: 'Yǒu liǎng xiāng bāozhuāng pòsǔn le.', exVi: 'Có hai thùng bao bì bị rách hỏng.' },
+      ],
+      patterns: [
+        { form: '……怎么样了？', use: 'Hỏi tình hình một việc đang làm', ex: '我们的订单怎么样了？', exPy: 'Wǒmen de dìngdān zěnmeyàng le?', exVi: 'Đơn hàng của chúng tôi thế nào rồi?' },
+        { form: '……什么时候能……？', use: 'Hỏi thời gian cụ thể', ex: '货什么时候能发？', exPy: 'Huò shénme shíhou néng fā?', exVi: 'Khi nào hàng có thể gửi đi?' },
+        { form: '麻烦您……一下', use: 'Nhờ vả lịch sự', ex: '麻烦您帮我查一下物流单号。', exPy: 'Máfan nín bāng wǒ chá yíxià wùliú dānhào.', exVi: 'Phiền anh tra giúp tôi mã vận đơn.' },
+        { form: '……是……，能不能……？', use: 'Hối hàng: nêu lý do rồi đề nghị', ex: '我们的生产线下周一开始，能不能这周五之前发货？', exPy: 'Wǒmen de shēngchǎnxiàn xià zhōuyī kāishǐ, néng bu néng zhè zhōuwǔ zhīqián fāhuò?', exVi: 'Dây chuyền của chúng tôi thứ Hai tuần sau bắt đầu, có thể gửi hàng trước thứ Sáu tuần này không?' },
+        { form: '收到……以后，我们会……', use: 'Hẹn bước tiếp theo', ex: '收到发票以后，我们会马上付款。', exPy: 'Shōudào fāpiào yǐhòu, wǒmen huì mǎshàng fùkuǎn.', exVi: 'Nhận được hoá đơn, chúng tôi sẽ thanh toán ngay.' },
+      ],
+      checklist: [
+        { zh: '到货时要有的单据', py: 'dàohuò shí yào yǒu de dānjù', vi: 'Giấy tờ cần có khi hàng tới', items: [
+          { d: '送货单 (phiếu giao hàng): tên hàng, số lượng, ngày giao. Người nhận ký vào đây.', key: true },
+          { d: '装箱单 (phiếu đóng gói): mỗi thùng có gì, bao nhiêu. Dùng để đếm và đối chiếu.' },
+          { d: '发票 (hoá đơn): không có hoá đơn thì phòng tài chính không thanh toán được.', key: true },
+          { d: '合格证 hoặc 质检报告 của lô hàng: chứng minh hàng đạt chuẩn, xem còn 有效期 không.', key: true },
+          { d: 'Bản sao hợp đồng hoặc đơn đặt hàng (订单) để đối chiếu quy cách, số lượng, đơn giá.' },
+        ] },
+        { zh: '催货的时候', py: 'cuīhuò de shíhou', vi: 'Khi hối hàng', items: [
+          { d: 'Hỏi đúng chỗ: tiến độ (进度) tới đâu, ngày gửi (发货), mã vận đơn (单号), ngày tới (到货).' },
+          { d: 'Nêu lý do cụ thể (dây chuyền sắp chạy), không chỉ nói "nhanh lên".', key: true },
+          { d: 'Ghi lại ngày giờ đối tác hứa, gửi email xác nhận lại.' },
+        ] },
+      ],
+      quiz: [
+        { type: 'mc', zh: '我们的订单______？', py: 'Wǒmen de dìngdān ______?', vi: 'Đơn hàng của chúng tôi thế nào rồi?',
+          options: [{ zh: '怎么样了', py: 'zěnmeyàng le' }, { zh: '是多少', py: 'shì duōshao' }, { zh: '比较贵', py: 'bǐjiào guì' }], answer: 0 },
+        { type: 'mc', zh: '______您帮我查一下物流单号。', py: '______ nín bāng wǒ chá yíxià wùliú dānhào.', vi: 'Phiền anh tra giúp tôi mã vận đơn.',
+          options: [{ zh: '如果', py: 'rúguǒ' }, { zh: '麻烦', py: 'máfan' }, { zh: '最晚', py: 'zuì wǎn' }], answer: 1 },
+        { type: 'mc', q: 'Hàng tới, giấy tờ nào phải có để phòng tài chính thanh toán?',
+          options: [{ zh: '装箱单', py: 'zhuāngxiāngdān', vi: 'phiếu đóng gói' }, { zh: '发票', py: 'fāpiào', vi: 'hoá đơn' }, { zh: '名片', py: 'míngpiàn', vi: 'danh thiếp' }], answer: 1 },
+        { type: 'mc', q: 'Có hai thùng hàng bị rách. Em nên làm gì trước khi 签收?',
+          options: ['Ký nhận ngay cho tài xế đi', 'Chụp ảnh, ghi rõ lên 送货单 rồi mới ký', 'Không nói gì, để sau tính'], answer: 1 },
+        { type: 'mc', q: 'Câu hối hàng nào tốt nhất?',
+          options: [{ zh: '快点发货！', py: 'Kuài diǎn fāhuò!' }, { zh: '我们的生产线下周一开始，能不能这周五之前发货？', py: 'Wǒmen de shēngchǎnxiàn xià zhōuyī kāishǐ, néng bu néng zhè zhōuwǔ zhīqián fāhuò?' }, { zh: '你们怎么还没发货？', py: 'Nǐmen zěnme hái méi fāhuò?' }], answer: 1 },
+        { type: 'order', q: 'Sắp xếp thành câu: "Nhận được hoá đơn, chúng tôi sẽ thanh toán ngay."',
+          tiles: [{ zh: '我们会', py: 'wǒmen huì' }, { zh: '收到发票', py: 'shōudào fāpiào' }, { zh: '马上付款', py: 'mǎshàng fùkuǎn' }, { zh: '以后', py: 'yǐhòu' }], answer: '收到发票以后我们会马上付款', answerPy: 'Shōudào fāpiào yǐhòu, wǒmen huì mǎshàng fùkuǎn.' },
+      ],
+    },
+  ],
+
+  // ===================== BÀI ĐÁNH GIÁ NĂNG LỰC =====================
+  // Câu hỏi: q = lời dẫn tiếng Việt; zh/py = câu tiếng Trung (py bỏ trống nếu câu đang hỏi chính phiên âm);
+  // options: chuỗi tiếng Việt hoặc { zh, py }.
+  test: {
+    pass: 8,
+    questions: [
+      { type: 'mc', q: 'Từ này nghĩa là gì?', zh: '供应商', py: 'gōngyìngshāng', options: ['Khách hàng', 'Nhà cung cấp', 'Nhân viên kho', 'Kế toán'], answer: 1 },
+      { type: 'mc', q: 'Chọn phiên âm đúng:', zh: '交货期', options: ['jiāohuòqī', 'jiàohuòqí', 'jiāohuōqì', 'xiāohuòqī'], answer: 0 },
+      { type: 'mc', audio: '每吨的单价是多少？', q: '🔊 Nghe và chọn nghĩa đúng:', options: ['Mỗi tấn nặng bao nhiêu?', 'Đơn giá mỗi tấn là bao nhiêu?', 'Cần bao nhiêu tấn?', 'Khi nào giao hàng?'], answer: 1 },
+      { type: 'mc', zh: '______便宜一点？', py: '______ piányi yìdiǎn?', vi: 'Có thể rẻ hơn một chút không?',
+        options: [{ zh: '比', py: 'bǐ' }, { zh: '能不能', py: 'néng bu néng' }, { zh: '最晚', py: 'zuì wǎn' }, { zh: '先', py: 'xiān' }], answer: 1 },
+      { type: 'mc', zh: '我们先付定金，交货以后______付余款。', py: 'Wǒmen xiān fù dìngjīn, jiāohuò yǐhòu ______ fù yúkuǎn.',
+        options: [{ zh: '就', py: 'jiù' }, { zh: '比', py: 'bǐ' }, { zh: '再', py: 'zài' }, { zh: '也', py: 'yě' }], answer: 2 },
+      { type: 'mc', q: 'Câu nào phù hợp nhất để MỞ ĐẦU cuộc đàm phán?',
+        options: [{ zh: '你们太贵了！', py: 'Nǐmen tài guì le!' }, { zh: '您好，我是星辰电器采购部的{me}。', py: 'Nín hǎo, wǒ shì Xīngchén Diànqì cǎigòubù de {mePy}.' }, { zh: '我要买东西。', py: 'Wǒ yào mǎi dōngxi.' }, { zh: '便宜点吧。', py: 'Piányi diǎn ba.' }], answer: 1 },
+      { type: 'mc', q: 'Trong quy trình thu mua, bước nào đứng ngay sau bước này?', zh: '询价', py: 'xúnjià',
+        options: [{ zh: '签合同', py: 'qiān hétong' }, { zh: '验收', py: 'yànshōu' }, { zh: '比价', py: 'bǐjià' }, { zh: '确定需求', py: 'quèdìng xūqiú' }], answer: 2 },
+      { type: 'mc', audio: '我们希望长期合作。', q: '🔊 Nghe và chọn nghĩa đúng:', options: ['Chúng tôi muốn ký hợp đồng ngay.', 'Chúng tôi mong được hợp tác lâu dài.', 'Chúng tôi muốn giảm giá.', 'Chúng tôi cần giao hàng sớm.'], answer: 1 },
+      { type: 'mc', zh: '这个价格超过了我们的______。', py: 'Zhège jiàgé chāoguò le wǒmen de ______.', vi: 'Giá này vượt quá ngân sách của chúng tôi.',
+        options: [{ zh: '预算', py: 'yùsuàn' }, { zh: '质量', py: 'zhìliàng' }, { zh: '合同', py: 'hétong' }, { zh: '定金', py: 'dìngjīn' }], answer: 0 },
+      { type: 'mc', zh: '这份质检报告已经______了，不能用。', py: 'Zhè fèn zhìjiǎn bàogào yǐjīng ______ le, bù néng yòng.', vi: 'Báo cáo kiểm định này đã hết hạn, không dùng được.',
+        options: [{ zh: '优惠', py: 'yōuhuì' }, { zh: '过期', py: 'guòqī' }, { zh: '提前', py: 'tíqián' }, { zh: '分批', py: 'fēnpī' }], answer: 1 },
+      { type: 'mc', q: 'Giá đàm phán được vẫn cao hơn ngân sách sếp giao. Em nên làm gì?',
+        options: ['Tự ký hợp đồng cho kịp tiến độ', 'Báo cáo số liệu và xin ý kiến sếp (请示)', 'Không nói gì, chờ sếp hỏi'], answer: 1 },
+      { type: 'order', q: 'Sắp xếp thành câu: "Giao hàng chậm nhất trong ba mươi ngày."',
+        tiles: [{ zh: '之前', py: 'zhīqián' }, { zh: '最晚', py: 'zuì wǎn' }, { zh: '交货', py: 'jiāohuò' }, { zh: '三十天', py: 'sānshí tiān' }], answer: '最晚三十天之前交货', answerPy: 'Zuì wǎn sānshí tiān zhīqián jiāohuò.' },
+    ],
+  },
+};

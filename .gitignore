@@ -1,0 +1,7 @@
+# Ảnh gốc, ảnh tổng hợp và ảnh chụp kiểm thử: chỉ giữ trên máy
+gamesource art/
+characters/tong-hop.png
+characters/tong-hop-bieu-cam.png
+prototype/screenshots/
+node_modules/
+.claude/

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>星辰电器 · 汉语职场培训</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="brand" data-act="home">⭐ 星辰电器 <small>汉语职场能力培训</small></button>
+  <div class="tools">
+    <button id="devBtn" class="keybtn" data-act="go" data-arg="review" title="Kiểm tra nội dung: vào thẳng mọi bài, mọi cảnh" hidden>🛠</button>
+    <button id="cloudBtn" class="keybtn" data-act="go" data-arg="account" title="Tài khoản và đồng bộ" hidden>☁️</button>
+    <button id="keyBtn" class="keybtn" data-act="go" data-arg="apikey" title="API Key · thầy giáo AI" hidden>🔑</button>
+    <button id="nbBtn" class="keybtn" data-act="go" data-arg="notebook" title="📒 Sổ từ ôn tập" hidden>📒 <span></span></button>
+    <button id="mkBtn" class="keybtn" data-act="go" data-arg="mistakes" title="📕 Sổ lỗi sai" hidden>📕 <span></span></button>
+    <span id="coins" class="coins" title="积分 · Điểm tích luỹ"></span>
+    <span id="who"></span>
+    <label><input type="checkbox" id="optPy" checked> 拼音</label>
+    <label><input type="checkbox" id="optVi" checked> Tiếng Việt</label>
+  </div>
+</header>
+<main id="view"></main>
+<aside id="guide" class="guide"><div class="guide-inner">
+  <button class="guide-cat" data-act="toggleGuide" title="Bấm để ẩn/hiện"><img id="guideImg" src="" alt=""></button>
+  <div class="bubble" id="guideBubble"></div>
+</div></aside>
+<script src="firebase-config.js"></script>
+<script src="glossary.js"></script>
+<script src="content.js"></script>
+<script src="content-mission.js"></script>
+<script src="content-missions-2.js"></script>
+<script src="content-factory.js"></script>
+<script src="content-factory-nodes.js"></script>
+<script src="content-factory-nodes-2.js"></script>
+<script src="ai.js"></script>
+<script src="art.js"></script>
+<script src="app.js"></script>
+<script type="module" src="cloud.js"></script>
+</body>
+</html>

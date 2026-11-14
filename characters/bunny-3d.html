@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小兔 3D</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #FFFBF6; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; overflow: hidden; }
+  #c { display: block; width: 100%; height: 100%; }
+  .hud { position: fixed; left: 24px; top: 18px; color: #6B3F28; pointer-events: none; }
+  .hud h1 { margin: 0; font-size: 26px; }
+  .hud p { margin: 4px 0; color: #9A7766; font-size: 14px; }
+  .btns { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; gap: 8px; }
+  button { border: 2px solid #8A5236; background: #fff; color: #6B3F28; border-radius: 999px; padding: 8px 16px; font: inherit; cursor: pointer; }
+  button.on { background: #8A5236; color: #fff; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud"><h1>小兔 3D · 采购部实习生</h1><p>Kéo để xoay · cuộn để phóng to</p></div>
+<div class="btns">
+  <button data-f="happy" class="on">开心</button>
+  <button data-f="think">思考</button>
+  <button data-f="wow">惊讶</button>
+  <button data-f="win">成功</button>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// Cùng bảng màu với bản 2D (bunny.svg)
+const C = { line: 0x8A5236, fur: 0xF8ECE6, ear: 0xEBCDBD, earLine: 0xF2A889, blush: 0xF3B6A3,
+  suit: 0x4B4648, tie: 0xA65A33, shirt: 0xFFF7F0, eye: 0x3A2218, mouth: 0xF29C9C, badge: 0x5B8FD6, white: 0xFFFFFF };
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xFFFBF6);
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+camera.position.set(1.8, 3.0, 10.5);
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, 2.0, 0);
+controls.enableDamping = true;
+controls.minDistance = 4; controls.maxDistance = 14;
+controls.autoRotate = true; controls.autoRotateSpeed = 1.2;
+controls.addEventListener('start', () => { controls.autoRotate = false; });
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0xE9D6CC, 1.7));
+const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+sun.position.set(3, 5, 4);
+scene.add(sun);
+
+// Đổ bóng kiểu hoạt hình: 3 nấc sáng
+const grad = new THREE.DataTexture(new Uint8Array([160,160,160,255, 220,220,220,255, 255,255,255,255]), 3, 1);
+grad.minFilter = grad.magFilter = THREE.NearestFilter; grad.needsUpdate = true;
+const toon = c => new THREE.MeshToonMaterial({ color: c, gradientMap: grad });
+const flat = c => new THREE.MeshBasicMaterial({ color: c });
+
+// Viền nâu kiểu vẽ tay: vỏ phía sau phóng to (inverted hull)
+function addOutline(mesh, color = C.line, w = 0.05) {
+  mesh.geometry.computeBoundingSphere();
+  const R = mesh.geometry.boundingSphere.radius;
+  const o = new THREE.Mesh(mesh.geometry, new THREE.MeshBasicMaterial({ color, side: THREE.BackSide }));
+  o.scale.set(1 + w / (R * mesh.scale.x), 1 + w / (R * mesh.scale.y), 1 + w / (R * mesh.scale.z));
+  mesh.add(o);
+}
+function part(geo, mat, parent, { pos = [0,0,0], rot = [0,0,0], scale = [1,1,1], outline = C.line, w = 0.05 } = {}) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(...pos); m.rotation.set(...rot); m.scale.set(...scale);
+  if (outline !== null) addOutline(m, outline, w);
+  parent.add(m);
+  return m;
+}
+const sphere = new THREE.SphereGeometry(1, 48, 32);
+function limb(a, b, r, mat, parent) {
+  const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b);
+  const m = part(new THREE.CapsuleGeometry(r, A.distanceTo(B), 8, 16), mat, parent, { w: 0.04 });
+  m.position.copy(A).add(B).multiplyScalar(0.5);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), B.clone().sub(A).normalize());
+  return m;
+}
+
+const bunny = new THREE.Group();
+scene.add(bunny);
+
+// ----- Đầu -----
+const HY = 2.05, HS = [1.25, 0.95, 1.05];
+part(sphere, toon(C.fur), bunny, { pos: [0, HY, 0], scale: HS, w: 0.06 });
+// z trên bề mặt đầu tại (x, y) để gắn các chi tiết mặt
+const zf = (x, y) => HS[2] * Math.sqrt(Math.max(0, 1 - (x / HS[0]) ** 2 - ((y - HY) / HS[1]) ** 2));
+const onFace = (x, y, d = 0.02) => [x, y, zf(x, y) + d];
+const tube = (pts, r, color, parent) => {
+  const curve = new THREE.CatmullRomCurve3(pts.map(([x, y]) => new THREE.Vector3(...onFace(x, y, 0.025))));
+  const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 32, r, 8, false), flat(color));
+  parent.add(m); return m;
+};
+// Má hồng
+for (const s of [-1, 1]) {
+  part(sphere, flat(C.blush), bunny, { pos: onFace(0.7 * s, 1.75, -0.01), rot: [0.25, 0.75 * s, 0], scale: [0.24, 0.13, 0.03], outline: null });
+}
+
+// ----- Các biểu cảm -----
+const faces = {};
+function eye(parent, x, y, sx, sy) {
+  part(sphere, flat(C.eye), parent, { pos: onFace(x, y, -0.02), rot: [0, x * 0.8, 0], scale: [sx, sy, 0.07], outline: null });
+  part(sphere, flat(C.white), parent, { pos: onFace(x - sx * 0.35, y + sy * 0.4, 0.04), scale: [sx * 0.35, sx * 0.35, 0.03], outline: null });
+}
+function mouth(parent, y, sx, sy) {
+  part(sphere, flat(C.mouth), parent, { pos: onFace(0, y, -0.01), scale: [sx, sy, 0.05], outline: C.line, w: 0.025 });
+}
+{ const f = faces.happy = new THREE.Group();
+  eye(f, -0.42, 2.0, 0.1, 0.13); eye(f, 0.42, 2.0, 0.1, 0.13);
+  tube([[-0.15, 1.8], [-0.075, 1.74], [0, 1.79], [0.075, 1.74], [0.15, 1.8]], 0.02, C.line, f);
+  mouth(f, 1.68, 0.09, 0.08); }
+{ const f = faces.think = new THREE.Group();
+  eye(f, -0.44, 2.03, 0.08, 0.1); eye(f, 0.4, 2.03, 0.08, 0.1);
+  tube([[-0.58, 2.22], [-0.44, 2.27], [-0.3, 2.22]], 0.022, C.line, f);
+  tube([[0.26, 2.22], [0.4, 2.27], [0.54, 2.22]], 0.022, C.line, f);
+  tube([[-0.13, 1.72], [-0.05, 1.76], [0.03, 1.71], [0.12, 1.75]], 0.02, C.line, f);
+  part(sphere, toon(0xCFE6F5), f, { pos: onFace(0.95, 2.35, 0.02), scale: [0.07, 0.1, 0.05], outline: 0x7FB3D5, w: 0.02 }); }
+{ const f = faces.wow = new THREE.Group();
+  eye(f, -0.42, 2.0, 0.14, 0.14); eye(f, 0.42, 2.0, 0.14, 0.14);
+  mouth(f, 1.72, 0.07, 0.09); }
+{ const f = faces.win = new THREE.Group();
+  tube([[-0.55, 1.97], [-0.42, 2.07], [-0.29, 1.97]], 0.03, C.line, f);
+  tube([[0.29, 1.97], [0.42, 2.07], [0.55, 1.97]], 0.03, C.line, f);
+  mouth(f, 1.72, 0.15, 0.12);
+  for (const [x, y, s] of [[-1.5, 2.9, 0.12], [1.45, 3.0, 0.16], [1.6, 2.3, 0.09]]) {
+    part(new THREE.OctahedronGeometry(1, 0), toon(0xF6C453), f, { pos: [x, y, 0.3], scale: [s, s * 1.4, s * 0.5], outline: 0xD99A2B, w: 0.02 });
+  } }
+for (const k in faces) { faces[k].visible = k === 'happy'; bunny.add(faces[k]); }
+
+// ----- Tai (có viền hồng cho phần bóng trong tai) -----
+function ear(x, y, tilt) {
+  const g = new THREE.Group();
+  g.position.set(x, y, -0.05); g.rotation.z = tilt;
+  part(new THREE.CapsuleGeometry(0.3, 1.1, 8, 24), toon(C.fur), g, { pos: [0, 0.8, 0], scale: [1, 1, 0.45] });
+  part(new THREE.CapsuleGeometry(0.18, 0.78, 8, 24), toon(C.ear), g, { pos: [0, 0.84, 0.16], scale: [1, 1, 0.15], outline: C.earLine, w: 0.06 });
+  bunny.add(g); return g;
+}
+const earL = ear(-0.42, 2.8, 0.2);
+const earR = ear(0.45, 2.78, -0.6);
+
+// ----- Thân, áo vest -----
+part(new THREE.CapsuleGeometry(0.6, 0.5, 8, 32), toon(C.suit), bunny, { pos: [0, 0.7, 0], scale: [1, 0.85, 0.85] });
+const tilt = -0.14;
+const shirt = new THREE.Shape([new THREE.Vector2(-0.22, 0.22), new THREE.Vector2(0.22, 0.22), new THREE.Vector2(0, -0.22)]);
+part(new THREE.ShapeGeometry(shirt), flat(C.shirt), bunny, { pos: [0, 0.93, 0.5], rot: [tilt, 0, 0], outline: null });
+const tie = new THREE.Shape([[-0.05, 0.17], [0.05, 0.17], [0.03, 0.1], [0.07, -0.18], [0, -0.26], [-0.07, -0.18], [-0.03, 0.1]].map(p => new THREE.Vector2(...p)));
+part(new THREE.ExtrudeGeometry(tie, { depth: 0.03, bevelEnabled: false }), toon(C.tie), bunny, { pos: [0, 0.97, 0.5], rot: [tilt, 0, 0], outline: 0x7A3F22, w: 0.015 });
+// Thẻ nhân viên: đặt cao trên ngực, tránh tay áo
+const badge = new THREE.Group();
+badge.position.set(0.3, 1.0, 0.45); badge.rotation.set(tilt, 0.5, 0);
+part(new THREE.BoxGeometry(0.16, 0.2, 0.02), toon(C.white), badge, { outline: C.line, w: 0.015 });
+part(new THREE.BoxGeometry(0.16, 0.05, 0.022), flat(C.badge), badge, { pos: [0, 0.075, 0.001], outline: null });
+bunny.add(badge);
+
+// ----- Tay, chân, đuôi -----
+for (const s of [-1, 1]) {
+  limb([0.6 * s, 0.95, 0.05], [0.14 * s, 0.62, 0.5], 0.13, toon(C.suit), bunny);
+  part(sphere, toon(C.fur), bunny, { pos: [0.12 * s, 0.6, 0.58], scale: [0.15, 0.13, 0.13], w: 0.04 });
+  part(sphere, toon(C.fur), bunny, { pos: [0.3 * s, 0.06, 0.12], scale: [0.3, 0.17, 0.36], w: 0.04 });
+}
+part(sphere, toon(C.fur), bunny, { pos: [0, 0.35, -0.55], scale: [0.18, 0.18, 0.18], w: 0.04 });
+
+// ----- Bóng dưới chân -----
+const shadow = new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ color: 0xE9D6CC, transparent: true, opacity: 0.6 }));
+shadow.rotation.x = -Math.PI / 2; shadow.position.y = -0.1; shadow.scale.set(1.1, 0.8, 1);
+scene.add(shadow);
+
+// ----- Nút đổi biểu cảm -----
+document.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+  for (const k in faces) faces[k].visible = k === b.dataset.f;
+}));
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  bunny.position.y = Math.abs(Math.sin(t * 2)) * 0.05;
+  earL.rotation.z = 0.2 + Math.sin(t * 3) * 0.04;
+  earR.rotation.z = -0.6 + Math.sin(t * 3 + 1) * 0.05;
+  controls.update();
+  renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>

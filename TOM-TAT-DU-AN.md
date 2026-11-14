@@ -210,3 +210,9 @@ game/
 │   └── screenshots/
 └── tools/                  ← crop-characters.js, contact-sheet.js, screenshots.js, serve.js
 ```
+
+## 7. Bản trên mạng (14/11)
+- Mã nguồn: https://github.com/CallmeNanh-26/hanyu-office (công khai, nhánh `main`). Ảnh gốc, ảnh tổng hợp, ảnh chụp kiểm thử chỉ giữ trên máy (`.gitignore`).
+- Game: https://callmenanh-26.github.io/hanyu-office/ (GitHub Pages, tự chuyển tới `prototype/`). Nút 🛠 không hiện ở bản này.
+- Cập nhật: commit rồi `git push` trong thư mục `game`; Pages tự dựng lại sau khoảng 1 phút.
+- Firebase: phải thêm `callmenanh-26.github.io` vào Authentication → Settings → Authorized domains thì mới đăng nhập được trên bản này.
